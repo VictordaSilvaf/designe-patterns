@@ -4,29 +4,71 @@ use Core\Creational\Builder\Conceptual\Request\BuilderRequests;
 use Core\Creational\Builder\Conceptual\Request\MethodsEnum;
 
 require_once '../vendor/autoload.php';
-// DbConnection::getConnection();
 
-// $iphone12 = new SmartPhoneBuilder(
-//     smartPhone: new ApplePhone(),
-//     data: [
-//         'gpu' => 'XPTO',
-//         'cpu' => 'XPTO',
-//         'ram' => 16,
-//         'sensors' => ['XPTO'],
-//         'model' => 'XPTO',
-//     ]
-// );
 
-// $iphone12->getSmartPhone();
+use Core\Creational\Builder\Practical\Address;
+use Core\Creational\Builder\Practical\Enums\Role;
+use Core\Creational\Builder\Practical\Phone;
+use Core\Creational\Builder\Practical\User;
+use Core\Creational\Builder\Practical\UserBuilder;
+use Core\Creational\Singleton\Practical\DbConnection;
+use Core\Creational\Singleton\Conceptual\Singleton;
 
-// $request = new BuilderRequests;
+require_once '../vendor/autoload.php';
 
-// $request->url('viacep.com.br/ws/01001000/json/');
-// $request->method(MethodsEnum::GET);
-// $request->payload(['']);
-// $request->build();
-
-$request = (new BuilderRequests)
-    ->url('viacep.com.br/ws/01001000/json/')
-    ->method(MethodsEnum::GET)
+$carlosFounder = new User(
+    firstName: 'Carlos',
+    lastName: 'Ferreira',
+    email: 'carlos@especializati.com.br',
+    age: 29,
+    role: Role::F,
+);
+$carlosFounder->setAddress(
+    new Address(
+        street: 'Rua x',
+        city: 'City X',
+        state: 'State X',
+        postalCode: 5757009,
+        country: 'BR',
+    )
+);
+$carlosFounder->setPhone(
+    new Phone(
+        ddd: 64,
+        number: 981701406,
+    )
+);
+$user = (new UserBuilder)
+    ->addBasicInfo(
+        firstName: 'Carlos',
+        lastName: 'Ferreira',
+        email: 'carlos@especializati.com.br',
+        age: 29,
+        role: Role::F,
+    )
+    ->addAddress(
+        street: 'Rua x',
+        city: 'City X',
+        state: 'State X',
+        postalCode: 5757009,
+        country: 'BR',
+    )
+    ->addPhone(
+        ddd: 64,
+        number: 981701406,
+    )
     ->build();
+
+/**
+ * Singleton Conceitual
+ */
+$instanceA = Singleton::getInstance();
+$instanceB = Singleton::getInstance();
+var_dump($instanceA === $instanceB);
+
+$instance = DbConnection::getInstance();
+DbConnection::getInstance();
+DbConnection::getInstance();
+DbConnection::getInstance();
+DbConnection::getInstance();
+DbConnection::getInstance();
