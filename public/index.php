@@ -2,8 +2,18 @@
 
 require_once '../vendor/autoload.php';
 
-use Core\Creational\Singleton\Conceitual\Singleton;
+use Core\Creational\Singleton\Practical\DbConnection;
 
-$instanceA = Singleton::getInstance();
+/* $instanceA = Singleton::getInstance();
 $instanceB = Singleton::getInstance();
 var_dump($instanceA === $instanceB);
+ */
+
+DbConnection::getConnection();
+DbConnection::getConnection();
+DbConnection::getConnection();
+DbConnection::getConnection();
+DbConnection::getConnection();
+DbConnection::getConnection();
+DbConnection::getConnection();
+DbConnection::getConnection();
